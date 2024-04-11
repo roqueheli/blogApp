@@ -1,0 +1,48 @@
+{
+  "name": "blogapp",
+  "version": "1.0.0",
+  "description": "aplicación de lista de blogs",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build:ui": "rm -rf dist && cd ../../Helsinski-Fullstack/part2/phonebook/ && npm run build && cp -r dist ../../../Helsinski-backend/phonebook-backend/",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",
+    "logs:prod": "fly logs",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roqueheli/blogApp.git"
+  },
+  "keywords": [
+    "blogApp",
+    "blog",
+    "app",
+    "blogapp"
+  ],
+  "author": "Roqueheli Arenas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roqueheli/blogApp/issues"
+  },
+  "homepage": "https://github.com/roqueheli/blogApp#readme",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "globals": "^15.0.0",
+    "nodemon": "^3.1.0"
+  }
+}
