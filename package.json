@@ -4,7 +4,7 @@
   "description": "aplicación de lista de blogs",
   "main": "index.js",
   "scripts": {
-    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
+    "test": "jest --verbose",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "build:ui": "rm -rf dist && cd ../../Helsinski-Fullstack/part2/phonebook/ && npm run build && cp -r dist ../../../Helsinski-backend/phonebook-backend/",
@@ -43,6 +43,10 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "globals": "^15.0.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

@@ -47,7 +47,7 @@ blogRouter.post('/', (rq, rs, next) => {
     tittle: body.tittle.toUpperCase(),
     author: body.author,
     url: body.url,
-    likes: body.likes || 0
+    likes: body.likes || 0,
   });
 
   return review
