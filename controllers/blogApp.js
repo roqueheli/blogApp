@@ -16,13 +16,12 @@ blogRouter.get('/:id', async (rq, rs) => {
 //  deleting a review
 blogRouter.delete('/:id', async (rq, rs) => {
   const deleteBlog = await BlogApp.findByIdAndDelete({ _id: rq.params.id });
-  return rs.status(204).json(deleteBlog).end();
+  return rs.status(204).json(deleteBlog);
 });
 
 //  updating a number of likes
 blogRouter.put('/:id', async (rq, rs) => {
-  const { id, body } = rq;
-  const updatedBlog = await BlogApp.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' });
+  const updatedBlog = await BlogApp.findByIdAndUpdate(rq.params.id, rq.body, { new: true, runValidators: true, context: 'query' });
   return rs.status(200).json(updatedBlog);
 });
 
@@ -30,9 +29,9 @@ blogRouter.put('/:id', async (rq, rs) => {
 blogRouter.post('/', async (rq, rs) => {
   const { body } = rq;
 
-  if (!body.tittle || !body.author || body.tittle === undefined || body.author === undefined) {
+  if (!body.tittle || !body.author || !body.url || body.tittle === undefined || body.author === undefined || body.url === undefined) {
     return rs.status(400).json({
-      error: 'tittle or author is missing',
+      error: 'tittle, author or url is missing',
     });
   }
 
