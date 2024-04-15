@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 const dummy = (blogs) => {
-  return blogs?.length === 0 ? 1 : blogs.length;
+  return blogs.length === 0 ? 1 : blogs.length;
 };
 
 const totalLikes = (blogs) => {

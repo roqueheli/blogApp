@@ -2,39 +2,32 @@ const blogRouter = require('express').Router();
 const BlogApp = require('../models/blogApp');
 
 //  get all reviews
-blogRouter.get('/', (rq, rs, next) => {
-  BlogApp.find({})
-    .then((blog) => rs.json(blog))
-    .catch((err) => next(err));
+blogRouter.get('/', async (rq, rs) => {
+  const blog = await BlogApp.find({});
+  return rs.status(200).json(blog);
 });
 
 //  get one review
-blogRouter.get('/:id', (rq, rs, next) => {
-  BlogApp
-    .findById(rq.params.id)
-    .then((blogReview) => rs.json(blogReview))
-    .catch((err) => next(err));
+blogRouter.get('/:id', async (rq, rs) => {
+  const getOneReview = await BlogApp.findById(rq.params.id);
+  return rs.status(200).json(getOneReview);
 });
 
 //  deleting a review
-blogRouter.delete('/:id', (rq, rs, next) => {
-  BlogApp
-    .findByIdAndDelete({ _id: rq.params.id })
-    .then((blogReview) => rs.json(blogReview))
-    .catch((err) => next(err));
+blogRouter.delete('/:id', async (rq, rs) => {
+  const deleteBlog = await BlogApp.findByIdAndDelete({ _id: rq.params.id });
+  return rs.status(204).json(deleteBlog).end();
 });
 
 //  updating a number of likes
-blogRouter.put('/:id', (rq, rs, next) => {
+blogRouter.put('/:id', async (rq, rs) => {
   const { id, body } = rq;
-  BlogApp
-    .findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' })
-    .then((blogReview) => rs.json(blogReview))
-    .catch((err) => next(err));
+  const updatedBlog = await BlogApp.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' });
+  return rs.status(200).json(updatedBlog);
 });
 
 //  add a new review
-blogRouter.post('/', (rq, rs, next) => {
+blogRouter.post('/', async (rq, rs) => {
   const { body } = rq;
 
   if (!body.tittle || !body.author || body.tittle === undefined || body.author === undefined) {
@@ -50,10 +43,8 @@ blogRouter.post('/', (rq, rs, next) => {
     likes: body.likes || 0,
   });
 
-  return review
-    .save()
-    .then((savedPerson) => rs.json(savedPerson))
-    .catch((err) => next(err));
+  const savedBlog = await review.save();
+  return rs.status(201).json(savedBlog);
 });
 
 module.exports = blogRouter;
