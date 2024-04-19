@@ -1,0 +1,20 @@
+### login
+post http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "rarenas27",
+    "password": "Geeks@123."
+}
+
+### add a new blog
+post http://localhost:3001/api/blog
+Content-Type: application/application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhcmVuYXMyNyIsImlkIjoiNjYxZWZmYWNlMGE3NzQxNTRkNzE1MjRkIiwiaWF0IjoxNzEzMzcyMjc2fQ.S5tllPYHjcaWnQWOl69RJhYNsKyx_qWYaFpbCAXuctY
+
+{
+  "tittle": "Harry Potter and the Prisoner of Azkaban",
+  "author": "J. K. Rowling",
+  "url": "https://cdnx.jumpseller.com/peliculas-de-papel/image/24915969/resize/1280/1280?1654580352",
+  "likes": 0
+}
