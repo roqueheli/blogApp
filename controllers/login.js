@@ -7,8 +7,7 @@ loginRouter.post('/', async (rq, rs) => {
   const { username, password } = rq.body;
 
   const user = await User.findOne({ username });
-  const passwordCorrect =
-    user === null ? false : await bcrypt.compare(password, user.passwordHash);
+  const passwordCorrect = user !== null && await bcrypt.compare(password, user.passwordHash);
 
   if (!(user && passwordCorrect)) {
     return rs.status(401).json({
@@ -25,7 +24,7 @@ loginRouter.post('/', async (rq, rs) => {
 
   rs
     .status(200)
-    .send({ token, username: user.username, name: user.name });
+    .send({ token, username: user.username, name: user.name, id: user._id });
 });
 
 module.exports = loginRouter;

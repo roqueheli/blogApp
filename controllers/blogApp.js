@@ -5,11 +5,20 @@ const User = require('../models/users');
 
 //  get all reviews
 blogRouter.get('/', async (rq, rs) => {
-  const blog = await BlogApp.find({}).populate('user', {
+  const blogs = await BlogApp.find({}).populate('user', {
     username: 1,
     name: 1,
   });
-  return rs.status(200).json(blog);
+  return rs.status(200).json(blogs);
+});
+
+//  get all reviews by user id
+blogRouter.get('/users/:id', async (rq, rs) => {
+  const blogs = await BlogApp.find({ user: rq.params.id }).populate('user', {
+    username: 1,
+    name: 1,
+  });
+  return rs.status(200).json(blogs);
 });
 
 //  get one review
@@ -50,6 +59,7 @@ blogRouter.post('/', async (rq, rs) => {
   if (!decodedToken.id) {
     return rs.status(401).json({ error: 'invalid token' });
   }
+  
 
   if (
     !body.tittle ||
@@ -65,6 +75,7 @@ blogRouter.post('/', async (rq, rs) => {
   }
 
   const user = await User.findById(decodedToken.id);
+  
 
   const review = new BlogApp({
     tittle: body.tittle.toUpperCase(),
@@ -78,7 +89,12 @@ blogRouter.post('/', async (rq, rs) => {
   user.blogs = user.blogs.concat(savedBlog._id);
   await user.save();
 
-  return rs.status(201).json(savedBlog);
+  const blogs = await BlogApp.find({}).populate('user', {
+    username: 1,
+    name: 1,
+  });
+  blogs
+  return rs.status(201).json(blogs);
 });
 
 module.exports = blogRouter;
